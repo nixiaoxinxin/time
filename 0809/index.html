@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            background: deepskyblue;
+        }
+    </style>
+</head>
+<body>
+<canvas width="800px"height="600px"></canvas>
+</body>
+</html>
+<script>
+    var can=document.querySelector('canvas');
+      var pen=can.getContext('2d')
+    var arc={
+        x:200,
+        y:20,
+        r:20,
+        c:'green',
+        g:10,
+        v:0,
+        xv:Math.pow(-1,Math.ceil(Math.random()*10))*5
+    }
+
+    setInterval(function () {
+        arc.v+=arc.g;
+        arc.y+=arc.v;
+        arc.x+=arc.xv
+        pen.clearRect(0,0,800,600)
+        pen.beginPath();
+        if(arc.y>580){
+            arc.y=580;
+            arc.v=-arc.v*0.8;
+        }
+        if(arc.x>800){
+            arc.x+=-arc.xv;
+        }
+        pen.fillStyle=arc.c;
+        pen.arc(arc.x,arc.y,arc.r,0,Math.PI*2)
+        pen.fill();
+        pen.closePath();
+    },1000/24)
+
+</script>

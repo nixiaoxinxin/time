@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		
+		html, body{
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<canvas width="800" height="600"></canvas>
+</body>
+</html>
+<script src="digit.js"></script>
+<script src="arc.js"></script>
+<script>
+var can = document.querySelector('canvas');	
+var pen = can.getContext('2d');	
+var balls = [];	
+	
+ ball(balls, 15, 15, 5, digit[0]);
+	
+setInterval(function(){
+	pen.clearRect(0, 0, 800, 600);
+	for(var i = 0; i < balls.length; i++){
+		balls[i].v += balls[i].g;
+		balls[i].y += balls[i].v;
+		balls[i].x += balls[i].xv;
+		if(balls[i].y >= 400){
+			balls[i].y = 400;
+			balls[i].v = - balls[i].v*0.8;
+		}
+		
+		pen.beginPath();
+		pen.fillStyle = balls[i].c;
+		pen.arc(balls[i].x, balls[i].y, balls[i].r, 0, Math.PI*2);
+		pen.fill();
+		pen.closePath();
+		
+		if(balls[i].x>= 600 || balls[i].x <= 0){
+			balls.splice(i, 1);
+		}
+	}
+}, 1000/24)
+
+</script>
